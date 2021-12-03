@@ -203,50 +203,7 @@ impl Editor {
                     self.document.insert(&self.cursor_position, '\n');
                     self.move_cursor(KeyCode::Right);
                 },
-                (_, KeyCode::Char(mut c)) => {
-                    match c {
-                        'l' | 'r' => {
-                            c = 'w';
-                        },
-
-                        'L' | 'R' => {
-                            c = 'W';
-                        },
-                        '*' => {
-                            self.document.insert(&self.cursor_position, '*');
-                            self.document.insert(&self.cursor_position, ' ');
-                            self.document.insert(&self.cursor_position, 's');
-                            self.document.insert(&self.cursor_position, 'e');
-                            self.document.insert(&self.cursor_position, 'c');
-                            self.document.insert(&self.cursor_position, 'i');
-                            self.document.insert(&self.cursor_position, 't');
-                            self.document.insert(&self.cursor_position, 'o');
-                            self.document.insert(&self.cursor_position, 'n');
-                            self.document.insert(&self.cursor_position, '*');
-
-                            self.move_right(10);
-                            return Ok(());
-                        },
-
-                        'U' => {
-                            self.document.insert(&self.cursor_position, 'U');
-                            self.document.insert(&self.cursor_position, 'w');
-                            self.document.insert(&self.cursor_position, 'U');
-
-                            self.move_right(4);
-                            return Ok(());
-                        },
-
-                        'O' => {
-                            self.document.insert(&self.cursor_position, 'O');
-                            self.document.insert(&self.cursor_position, 'w');
-                            self.document.insert(&self.cursor_position, 'O');
-
-                            self.move_right(4);
-                            return Ok(());
-                        }
-                        _ => {}
-                    }
+                (_, KeyCode::Char(c)) => {
 
                     self.document.insert(&self.cursor_position, c);
                     self.move_cursor(KeyCode::Right);
@@ -363,12 +320,6 @@ impl Editor {
         }
 
         self.cursor_position = Position { x, y }
-    }
-
-    fn move_right(&mut self, i: u8) {
-        for _ in 1..i {
-            self.move_cursor(KeyCode::Right);
-        }
     }
 
     fn draw_centered(&self, r: &Row) {
